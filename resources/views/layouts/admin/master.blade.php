@@ -43,10 +43,13 @@
         <div class="page-body-wrapper sidebar-icon">
             <!-- Page Sidebar Start-->
             @includeIf('layouts.admin.partials.sidebar')
+            @include('dashbord.alert.alert')
             <!-- Page Sidebar Ends-->
             <div class="page-body">
                 <!-- Container-fluid starts-->
+
                 @yield('content')
+
                 <!-- Container-fluid Ends-->
             </div>
             <!-- footer start-->
