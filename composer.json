@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "laravelcollective/html": "^6.4",
         "mcamara/laravel-localization": "^1.8",
         "spatie/laravel-permission": "^5.11",
         "spatie/laravel-translatable": "^6.5"

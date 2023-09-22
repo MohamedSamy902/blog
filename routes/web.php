@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -27,12 +28,26 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']
     ],
     function () {
-        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::resource('roles', RoleController::class);
-        Route::resource('categories', CategoryController::class);
+        Route::resource('categories', CategoryController::class)->except('show');
         Route::resource('users', UserController::class);
     }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @include_once('admin_web.php');
 

@@ -12,12 +12,10 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
+    'Name' => 'Name',
+    'name_ar' => 'Name Arabic',
 
-    'user' => 'اعضاء',
     
-    'add' => 'اضافه عضو',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
     // 'user' => "We can't find a user with that email address.",
 
 ];

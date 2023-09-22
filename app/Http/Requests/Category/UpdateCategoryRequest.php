@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatetestRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdatetestRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdatetestRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'  => 'required|min:3|max:200|unique:categories,name,', $this->category->name,
+            'name_ar' => 'required|min:3|max:200',
         ];
     }
 }

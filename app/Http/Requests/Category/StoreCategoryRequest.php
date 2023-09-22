@@ -28,4 +28,19 @@ class StoreCategoryRequest extends FormRequest
             'name_ar' => 'required|min:3|max:200',
         ];
     }
+
+    public function messages() {
+        return [
+            'name.required' => __('validation.required'),
+            'name_ar.required' => __('validation.required'),
+        ];
+    }
+
+    public function attributes() {
+        return [
+            'name'  => __('master.name'),
+            'name_ar'  => __('master.name_ar'),
+        ];
+    }
+
 }

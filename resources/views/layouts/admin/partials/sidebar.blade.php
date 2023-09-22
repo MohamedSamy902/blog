@@ -66,6 +66,21 @@
                         </li>
                     @endcan
 
+
+                    @can('categor-list')
+                    <li class="dropdown">
+                        <a class="nav-link menu-title {{ prefixActive('/dashboard') }}" href="javascript:void(0)"><i
+                                data-feather="home"></i><span>Category</span></a>
+                        <ul class="nav-submenu menu-content" style="display: {{ prefixBlock('/dashboard') }};">
+                            <li><a href="{{ route('users.index') }}" class="{{ routeActive('index') }}">category List</a>
+                            </li>
+                            @can('add-category')
+                                <li><a href="{{ route('users.create') }}" class="{{ routeActive('users.create') }}">Add
+                                    Category</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
                 </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

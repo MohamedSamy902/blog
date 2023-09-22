@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -12,10 +13,10 @@ class CategoryController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:category-list', ['only' => ['index']]);
+        $this->middleware('permission:categor-list', ['only' => ['index']]);
         $this->middleware('permission:add-category', ['only' => ['create', 'store']]);
-        $this->middleware('permission:edit-role', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:delete-role', ['only' => ['destroy']]);
+        $this->middleware('permission:edit-category', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-category', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +26,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-       return  Category::pluck('id', 'name')->all();
         return view('dashbord.categories.index', compact('categories'));
     }
 
@@ -47,13 +47,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-
         $data = $request->validated();
         $data['name'] = [
             'en' => $request->name,
             'ar' => $request->name_ar
         ];
+
         Category::create($data);
+        return redirect()->back();
     }
 
     /**
@@ -75,7 +76,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('dashbord.categories.edit', compact('category'));
     }
 
     /**
@@ -85,9 +86,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->validated();
+        $data['name'] = [
+            'en' => $request->name,
+            'ar' => $request->name_ar
+        ];
+
+        $category->update($data);
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -98,6 +106,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index');
     }
 }

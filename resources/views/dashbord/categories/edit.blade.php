@@ -14,7 +14,6 @@
         <li class="breadcrumb-item active">اضافه قسم</li>
     @endcomponent
 
-    @include('admin.alert.alert')
 
     <div class="container-fluid">
         <div class="row">
@@ -26,20 +25,25 @@
                     <form class="form theme-form" action="{{ route('categories.update', $category->id) }}" method="post">
                         @csrf
                         @method('put')
+
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="exampleFormControlInput1">اضافه قسم</label>
-                                        <input class="form-control" id="exampleFormControlInput1" type="text"
-                                            placeholder="اسم القسم" name="name" value="{{ $category->name }}" />
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="validationCustom01">Category Name En</label>
+                                        <input class="form-control" id="validationCustom01" type="text" name="name"
+                                            required=""
+                                            value="{{ old('name') ? old('name') : $category->getTranslation('name', 'en') }}" />
+                                        <div class="valid-feedback">{{ __('validation.valid_feedback') }}</div>
+                                        <div class="invalid-feedback">{{ __('validation.invalid_feedback') }}</div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="exampleFormControlRecovery">مده الضمان</label>
-                                        <input class="form-control" id="exampleFormControlRecovery" type="text"
-                                            placeholder="مده الضمان" name="recovery" value="{{ $category->recovery }}" />
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="validationCustom02">Category Name Ar</label>
+                                        <input class="form-control" id="validationCustom02" type="text" name="name_ar"
+                                            required=""
+                                            value="{{ old('name_ar') ? old('name_ar') : $category->getTranslation('name', 'ar') }}" />
+                                        <div class="valid-feedback">{{ __('validation.valid_feedback') }}</div>
+                                        <div class="invalid-feedback">{{ __('validation.invalid_feedback') }}</div>
                                     </div>
                                 </div>
                             </div>

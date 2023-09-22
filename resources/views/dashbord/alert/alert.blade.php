@@ -30,17 +30,6 @@
         <script src="{{ asset('assets/js/sweet-alert/sweetalert.min.js') }}"></script>
 
         <script>
-            // Swal.fire({
-            //     position: 'center',
-            //     icon: 'error',
-
-            //     @foreach ($errors->all() as $error)
-            //         text : '{!! $error !!}',
-            //     @endforeach
-            //     showConfirmButton: false,
-            //     timer: 2000
-            // })
-
             swal("{{ session('success') }}", {
                 position: 'center',
                 icon: 'error',

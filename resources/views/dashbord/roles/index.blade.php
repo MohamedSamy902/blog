@@ -28,9 +28,9 @@
                             <table class="display" id="responsive">
                                 <thead>
                                     <tr>
-                                        <th>الاسم</th>
+                                        <th>Name</th>
 
-                                        <th>التحكم</th>
+                                        <th>Controll</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,7 +39,7 @@
                                             <td>{{ $role->name }}</td>
 
                                             <td>
-                                                @can('تعديل-صلاحيه')
+                                                @can('edit-role')
                                                     <a class="btn btn-outline-primary-2x"
                                                         href="{{ route('roles.edit', $role->id) }}">تعديل</a>
                                                 @endcan
