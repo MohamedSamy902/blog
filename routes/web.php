@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +17,28 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
+
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']
+    ],
+    function () {
+        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::resource('roles', RoleController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('users', UserController::class);
+    }
+);
+
 @include_once('admin_web.php');
 
 Route::get('/', function () {
     return redirect()->route('index');
-})->name('/');
+})->name('index');
 
 Route::view('sample-page', 'admin.pages.sample-page')->name('sample-page');
 
@@ -30,16 +48,8 @@ Route::prefix('dashboard')->group(function () {
 });
 
 
-Route::prefix('categories')->group(function () {
-    Route::resource('/', CategoryController::class);
-    // Route::view('/', 'admin.dashboard.default')->name('index');
-    // Route::view('default', 'admin.dashboard.default')->name('dashboard.index');
-});
-
-// Route::prefix('roles')->group(function () {
-    // Route::resource('/', RoleController::class);
-    Route::resource('roles', RoleController::class)->except(['show']);
-// });
+// Route::resource('/categories', CategoryController::class);
+// Route::resource('roles', RoleController::class)->except(['show']);
 
 
 /** Start Route Roles **/

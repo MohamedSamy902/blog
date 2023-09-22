@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -17,12 +18,12 @@ class RoleController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:الصلاحيات', ['only' => ['index']]);
-        $this->middleware('permission:اضافه-صلاحيه', ['only' => ['create', 'store']]);
-        $this->middleware('permission:تعديل-صلاحيه', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:حذف-صلاحيه', ['only' => ['destroy']]);
+        $this->middleware('permission:role', ['only' => ['index']]);
+        $this->middleware('permission:add-role', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit-role', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-role', ['only' => ['destroy']]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *

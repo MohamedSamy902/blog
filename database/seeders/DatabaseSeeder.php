@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,15 +16,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        $this->call(PermissionTableSeeder::class);
+
+
+        $user = \App\Models\User::create([
             'name' => 'Mohamed Samy',
             'username' => 'mohamed',
-            'password' => Hash::make(123123),
+            'password' => bcrypt('123123'),
             'mobile' => 01150100104,
             'role_name' => 'admin',
-            'email' => 'test@example.com',
+            'email' => 'admin@app.com',
         ]);
+
+        $role = Role::create(['name' => 'admin']);
+        $permissions = Permission::pluck('id', 'id')->all();
+        $role->syncPermissions($permissions);
+        $user->assignRole([$role->id]);
     }
 }

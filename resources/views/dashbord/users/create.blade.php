@@ -73,9 +73,9 @@
                             <div class="row g-1">
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label" for="validationDefault06">{{ __('role.role') }}</label>
-                                    <select class="form-select" id="validationDefault06" required="" name="roles_name">
+                                    <select class="form-select" id="validationDefault06" required="" name="role_name">
                                         @foreach ($roles as $role)
-                                            <option value="{{ $role }}" @selected($user->roles_name == $role )>
+                                            <option value="{{ $role }}" >
                                                 {{ $role }}</option>
                                         @endforeach
                                     </select>

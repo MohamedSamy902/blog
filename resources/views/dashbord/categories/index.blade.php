@@ -16,7 +16,6 @@
         @endslot
         <li class="breadcrumb-item active">الاقسام</li>
     @endcomponent
-    @include('admin.alert.alert')
 
     <div class="container-fluid">
         <div class="row">
@@ -29,26 +28,19 @@
                                 <thead>
                                     <tr>
                                         <th>الاسم</th>
-                                        <th>مده الضمان</th>
-                                        <th>تم بواسطه</th>
-                                        <th>التحكم</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($categories as $category)
                                         <tr>
                                             <td>{{ $category->name }}</td>
-                                            <td>{{ $category->recovery }}</td>
-                                            <td>{{ $category->user->name }}
-
-                                            </td>
 
                                             <td>
-                                                @can('تعديل-قسم')
+                                                @can('category-edit')
                                                     <a class="btn btn-outline-primary-2x"
                                                         href="{{ route('categories.edit', $category->id) }}">تعديل</a>
                                                 @endcan
-                                                @can('حذف-قسم')
+                                                @can('category-delete')
                                                     {!! Form::open(['method' => 'DELETE', 'route' => ['categories.destroy', $category->id], 'style' => 'display:inline']) !!}
                                                     {!! Form::submit('حذف', ['class' => 'btn btn-outline-danger-2x', 'style' => 'border-width: 2px !important;border-color: #d22d3d !important;color: #d22d3d !important;background-color: transparent !important;']) !!}
                                                     {!! Form::close() !!}

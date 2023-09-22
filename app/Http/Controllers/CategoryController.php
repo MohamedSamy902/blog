@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class CategoryController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:category-list', ['only' => ['index']]);
+        $this->middleware('permission:add-category', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit-role', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-role', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+       return  Category::pluck('id', 'name')->all();
+        return view('dashbord.categories.index', compact('categories'));
     }
 
     /**
@@ -24,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashbord.categories.create');
     }
 
     /**
@@ -33,9 +45,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+
+        $data = $request->validated();
+        $data['name'] = [
+            'en' => $request->name,
+            'ar' => $request->name_ar
+        ];
+        Category::create($data);
     }
 
     /**
